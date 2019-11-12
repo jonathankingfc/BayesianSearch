@@ -59,6 +59,15 @@ class Landscape:
         else:
             return False
 
+    def pick_new_target(self):
+        """
+        Sets target to new location
+        """
+
+        # Set target location
+        self.target = (np.random.randint(self.dim),
+                       np.random.randint(self.dim))
+
     def pprint(self):
         """
         Print landscape in easier format. 
