@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 
 class Landscape:
@@ -67,6 +68,26 @@ class Landscape:
         # Set target location
         self.target = (np.random.randint(self.dim),
                        np.random.randint(self.dim))
+
+    def move_target_to_neighbor(self):
+        """
+        Returns a new location based on a uniform distribution probability for each valid neighbor of current location
+        """
+        i, j = self.target
+
+        possible_neighbors = []
+
+        # Iterate through all possible neighors
+        for delta in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+
+            # Only append valid neighbors
+            if 0 <= i + delta[0] < self.dim and 0 <= j + delta[1] < self.dim:
+                possible_neighbors.append((i+delta[0], j+delta[1]))
+
+        self.target = possible_neighbors.pop(
+            random.randrange(len(possible_neighbors)))
+
+        return np.random.choice(list(filter(lambda x: x != self.grid[self.target], ['flat', 'hilly', 'forest', 'caves'])))
 
     def pprint(self):
         """

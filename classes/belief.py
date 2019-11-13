@@ -56,7 +56,7 @@ class BeliefGrid:
 
                 self.grid[i, j] = initial_belief_cell
 
-    def choose_query_loc(self, rule, consider_travel=False):
+    def choose_query_loc(self, rule, consider_travel=False, target_not_in_terrain=None):
         """
         Choose the query location based on the maximum probability for our given rule. 
         Rule 1: This will return the cell location with the highest probability of the target being present.
@@ -69,6 +69,9 @@ class BeliefGrid:
         # Iterate through cells to find maximum
         for i in range(self.dim):
             for j in range(self.dim):
+
+                if self.grid[i, j].type == target_not_in_terrain:
+                    continue
 
                 # If we are considering travel, update heuristic
                 if consider_travel == False:
